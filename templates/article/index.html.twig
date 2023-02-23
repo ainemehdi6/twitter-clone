@@ -3,35 +3,40 @@
 {% block title %}Article index{% endblock %}
 
 {% block body %}
-    <h1>Article index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Contenu</th>
-                <th>UserId</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for article in articles %}
-            <tr>
-                <td>{{ article.id }}</td>
-                <td>{{ article.contenu }}</td>
-                <td>{{ article.userId }}</td>
-                <td>
-                    <a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_article_new') }}">Create new</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Tweets By IUT</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ path('app_article_index') }}">Show Tweets <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_article_new') }}">Add Tweet</a>
+      </li>
+    </ul>
+    <span class="navbar-text">
+      <a href="{{ path('app_logout') }}">Log out</a>
+    </span>
+  </div>
+</nav>
+    <br><center><h1>Tweets</h1></center><br>
+<section style="width:500px;margin:auto;">
+{% for article in articles %}
+    <div class="card">
+        <img class="card-img-top" src="https://s3-eu-west-1.amazonaws.com/krds-website/production/2017/02/28100118/247850-13EQzk1472272196.jpg" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text">{{ article.contenu }}</p>
+        </div>
+        <div class="card-body">
+            <a href="{{ path('app_article_show', {'id': article.id}) }}" class="card-link">Show Tweet</a>
+            <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="card-link">Edit Tweet</a>
+        </div>
+    </div>
+{% else %}
+<p>no records found</p>
+{% endfor %}   
+</section>
 {% endblock %}
